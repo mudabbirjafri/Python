@@ -6,17 +6,30 @@ import pandas as pd
 from sklearn import datasets, svm, tree, preprocessing, metrics
 import sklearn.ensemble as ske
 import os
+import datetime
 
-os.chdir('C:/Users/Mudabbir/Desktop/Spring Quarter/Machine Learning 808/nyc-property-sales')
-nyc_data = pd.read_csv('nyc-rolling-sales.csv') #Lead the data
-#Remove Empty colums
-nyc_data.drop(['EASE-MENT', 'APARTMENT NUMBER'], axis=1, inplace=True)
+os.chdir('C:/Users/adhillon/OneDrive - NVIDIA Corporation/AnacondaProjects/OPS 808/Dataset/')
+nyc_data = pd.read_csv('nyc-rolling-sales.csv')
+
+# examine the dataset
+nyc_data.dtypes
+nyc_data.shape
+nyc_data.isna().sum()
+nyc_data.groupby(['TAX CLASS AT PRESENT']).count().iloc[:,:1]/len(nyc_data)
+nyc_data.groupby(['BOROUGH']).count().iloc[:,:1]/len(nyc_data)
+
+nyc_data.head()
+
+# preprocessing
+nyc_data['SALE DATE'] = pd.to_datetime(nyc_data["SALE DATE"])
+nyc_data = nyc_data.replace(to_replace=' -  ', value ='0')
+nyc_data['SALE PRICE'] = nyc_data['SALE PRICE'].astype('int64')
+nyc_data['BUILDING CLASS AT TIME OF SALE']=pd.Categorical(nyc_data['BUILDING CLASS AT TIME OF SALE']).codes
+nyc_data['BUILDING CLASS AT TIME OF SALE']=nyc_data['BUILDING CLASS AT TIME OF SALE'].astype('category').cat.codes
+
+
+nyc_data.drop(['EASE-MENT', 'APARTMENT NUMBER'], axis=1, inplace=True) #Remove Empty columns
 nyc_data =nyc_data.loc[:, ~nyc_data.columns.str.contains('^Unnamed')]
-#Drop Nans
-nyc_data.dropna().head(2)
-#Replace - in Sale price with NAN
-nyc_data['SALE PRICE']=nyc_data['SALE PRICE'].replace(' -  ', np.NaN)
-nyc_data.head(5)
 
 
 #Use LabelEncoder to convert labels into binary codes
