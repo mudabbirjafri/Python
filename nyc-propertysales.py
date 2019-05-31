@@ -8,7 +8,7 @@ import sklearn.ensemble as ske
 import os
 import datetime
 
-os.chdir('C:/Users/adhillon/OneDrive - NVIDIA Corporation/AnacondaProjects/OPS 808/Dataset/')
+os.chdir('C:/Users/mudabbir/OPS 808/Dataset/')
 nyc_data = pd.read_csv('nyc-rolling-sales.csv')
 
 # examine the dataset
