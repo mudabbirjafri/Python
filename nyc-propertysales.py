@@ -8,7 +8,7 @@ import sklearn.ensemble as ske
 import os
 import datetime
 
-os.chdir('C:/Users/mudabbir/OPS 808/Dataset/')
+os.chdir('C:/Users/Mudabbir/Desktop/Spring Quarter/Machine Learning 808/nyc-property-sales')
 nyc_data = pd.read_csv('nyc-rolling-sales.csv')
 
 # examine the dataset
@@ -42,10 +42,11 @@ nyc_data['BUILDING CLASS AT PRESENT'] = LE.fit_transform(nyc_data['BUILDING CLAS
 nyc_data['TAX CLASS AT PRESENT'] = LE.fit_transform(nyc_data['TAX CLASS AT PRESENT'])
 nyc_data['BUILDING CLASS AT TIME OF SALE'] = LE.fit_transform(nyc_data['BUILDING CLASS AT TIME OF SALE'])
 nyc_data['ADDRESS'] = LE.fit_transform(nyc_data['ADDRESS'])
-nyc_data['SALE PRICE'] = nyc_data['SALE PRICE'].astype(str)
+# nyc_data['SALE PRICE'] = nyc_data['SALE PRICE'].astype(str)
 
-nyc_data.fillna(nyc_data.mean(), inplace=True)
+# nyc_data.fillna(nyc_data.mean(), inplace=True)
+nyc_data.head()
 
+Avg_price = nyc_data.groupby(['TAX CLASS AT PRESENT', 'YEAR BUILT'])['SALE PRICE'].mean()
 
-Avg_price = nyc_data.groupby(['TAX CLASS AT PRESENT', 'YEAR BUILT'])['SALE PRICE']['SALES PRICE'].mean()
 Avg_price.head()
