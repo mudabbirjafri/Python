@@ -50,3 +50,5 @@ nyc_data.head()
 Avg_price = nyc_data.groupby(['TAX CLASS AT PRESENT', 'YEAR BUILT'])['SALE PRICE'].mean()
 
 Avg_price.head()
+
+##Lets do a simple linear regression model
